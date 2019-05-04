@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
 import styled from 'styled-components'
-import { selectUser } from '../selectors/userSelector'
+import { selectUser } from '../selectors/selectors'
 import { userLogout } from '../actions/userActions'
 import routes from '../pathes'
 
@@ -22,9 +22,10 @@ const Navbar = styled.nav`
 const StyledLink = styled(Link)`
   margin: 0 10px;
   text-decoration: none;
-  font-family: Roboto, Consolas;
+  font-family: Roboto, Consolas, sans-serif;
   font-size: 1.2em;
   color: ${({theme, to, route, location}) => location.pathname === (to || route) ? theme.colors.salmon : theme.colors.warning};
+    
     &:hover {
       color: ${({theme}) => theme.hoverColors.white};
     }
@@ -36,18 +37,22 @@ const Header = ({ history, user, userLogout, location }) => {
     history.push(routes.HOME)
   }
 
-  const handleLoggin = () => {
-
-  }
-
   return (
     <HeaderWrapper>
       <Navbar>
         <StyledLink to={routes.HOME} location={location} >HOME</StyledLink>
+        <StyledLink to={routes.MOVIES} location={location} >MOVIES</StyledLink>
         {
           user.authorized
-            ? <StyledLink onClick={handleLogout} location={location} children='LOGOUT' />
-            : <StyledLink to={routes.LOGIN} location={location} children='LOGIN' />
+            ? <StyledLink to='' onClick={handleLogout} location={location} children='LOGOUT' />
+            : <StyledLink
+                to={{
+                  pathname: routes.LOGIN,
+                  state: { from: location }
+                }}
+                location={location}
+                children='LOGIN'
+              />
         }
       </Navbar>
     </HeaderWrapper>

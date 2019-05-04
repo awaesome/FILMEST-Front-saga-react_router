@@ -1,15 +1,17 @@
 import * as types from '../actions/actionsTypes'
 
 const initialState = {
-  movies: [],
-  movie: {},
-  error: null
+  isError: false
 }
 
 export default (state = initialState, { type, payload }) => {
+
   switch (type) {
-    case types.MOVIES_RECEIVED: {
-      return { ...state, movies: payload }
+    case types.ERROR_RECEIVED: {
+      return { isError: true, ...payload }
+    }
+    case types.ERROR_RESET: {
+      return { isError: false }
     }
     default:
       return state

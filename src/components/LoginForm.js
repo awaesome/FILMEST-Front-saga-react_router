@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { userLoggin } from '../actions/userActions'
-import styled from 'styled-components'
+import { selectUser } from '../selectors/selectors'
+import { compose } from 'redux'
+import { withRouter } from 'react-router'
 
 const Fieldset = styled.fieldset`
   margin: 50px auto;
@@ -19,7 +22,7 @@ const Input = styled.input`
   margin: 0 10px
 `
 
-const Form = ({ userLoggin }) => {
+const Form = ({ history, userLoggin, from, user }) => {
 
   const [state, setState] = useState({ email: '', password: ''})
 
@@ -37,7 +40,10 @@ const Form = ({ userLoggin }) => {
     ))
   }
 
-  console.log(state)
+  if (user.authorized) {
+    history.push(from)
+  }
+
   return (
     <form onSubmit={ handleLogin }>
       <Fieldset>
@@ -56,4 +62,9 @@ const Form = ({ userLoggin }) => {
   )
 }
 
-export default connect(null, { userLoggin })(Form)
+const mapStateToProps = state => ({user: selectUser(state)})
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, { userLoggin })
+)(Form)
