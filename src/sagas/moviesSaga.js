@@ -1,9 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import * as types from '../actions/actionsTypes'
-import axios from 'axios'
+import { getMovies } from '../api/endpoints'
 
 function* fetchMovies() {
-  const res = yield axios.get('http://localhost:5000/movies').catch(error => error.response)
+  const res = yield getMovies()
   console.log('res', res)
 
   if (res.status && /20./gi.test(res.status)) {
