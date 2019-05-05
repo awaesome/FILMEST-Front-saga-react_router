@@ -1,18 +1,19 @@
 import * as types from '../actions/actionsTypes'
+import { isLogged, setAuth, removeAuth } from '../api/api'
 
 const initialState = {
-  authorized: !!JSON.parse(localStorage.getItem('authorized')),
+  authorized: isLogged(),
   proposeLogin: false
 }
 
 export default (state = initialState, { type }) => {
   switch (type) {
     case types.USER_LOGGED: {
-      localStorage.setItem('authorized', 'true')
+      setAuth(true)
       return { ...state, authorized: true }
     }
     case types.USER_LOGOUT: {
-      localStorage.removeItem('authorized')
+      removeAuth('authorized')
       return { ...state, authorized: false }
     }
     case types.USER_SHOW_LOGIN_PROPOSE: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Redirect } from 'react-router'
-import isLogged from '../utils/isLogged'
+import { isLogged } from '../api/api'
 import routes from '../pathes'
 
 const Article = styled.article`
