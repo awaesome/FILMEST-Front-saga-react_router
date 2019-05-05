@@ -4,7 +4,7 @@ import { withRouter } from 'react-router'
 import routes from '../pathes'
 
 // noinspection CssInvalidPropertyValue
-const Article = styled.article`
+const Article = styled.section`
   position: absolute;
   display: grid;
   width: 100vw;
@@ -13,10 +13,18 @@ const Article = styled.article`
   left: 0;
   place-items: center center;
   background-color: rgba(0,0,0,.8);
+`
+
+const Overlay = styled.section`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
   z-index: 5;
 `
 
-const Modal = styled.div`
+const Modal = styled.article`
   width: 300px;
   height: 100px;
   display: flex;
@@ -26,6 +34,7 @@ const Modal = styled.div`
   background: bisque;
   border-radius: 4px;
   padding: 10px;
+  z-index: 10;
 `
 
 const Title = styled.h4`
@@ -60,7 +69,7 @@ const LoginProposal = ({ removeLoginPropose, history }) => {
   }
 
   return (
-    <Article>
+    <Article >
       <Modal>
         <Title children='You need to log in to visit this page.'/>
         <div>
@@ -68,6 +77,7 @@ const LoginProposal = ({ removeLoginPropose, history }) => {
           <Button onClick={removeLoginPropose} children='CANCEL' />
         </div>
       </Modal>
+      <Overlay onClick={removeLoginPropose}/>
     </Article>
   )
 }

@@ -1,7 +1,9 @@
 import * as types from '../actions/actionsTypes'
 
 const initialState = {
-  isError: false
+  isError: false,
+  code: '',
+  message: ''
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -11,7 +13,7 @@ export default (state = initialState, { type, payload }) => {
       return { isError: true, ...payload }
     }
     case types.ERROR_RESET: {
-      return { isError: false }
+      return { isError: false, code: '', message: '' }
     }
     default:
       return state
