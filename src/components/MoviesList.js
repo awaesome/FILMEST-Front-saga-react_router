@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import MovieItem from './MovieItem'
 import { showLoginPropose } from '../actions/userActions'
 
-const Main = styled.main`
+const Section = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
 `
@@ -24,11 +24,11 @@ const MoviesList = ({ movies, error, showLoginPropose }) => {
   }
 
   return (
-    <Main>
+    <Section>
       {
         movies.map(movie => <MovieItem key={movie._id} movie={movie} showLoginPropose={showLoginPropose}/>)
       }
-    </Main>
+    </Section>
   )
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Redirect } from 'react-router'
 import isLogged from '../utils/isLogged'
+import routes from '../pathes'
 
 const Article = styled.article`
   margin: 20px 10px;
@@ -59,8 +60,23 @@ const Rating = styled.div`
   justify-content: space-between;
 `
 
+const data = (movie) => {
+  return [
+    {
+      sourse: 'IMDB',
+      rating: movie.imdb.rating,
+      votes: movie.imdb.votes
+    },
+    {
+      sourse: 'Tomatoes',
+      rating: movie.tomatoes.viewer.rating,
+      votes: movie.tomatoes.viewer.numReviews
+    },
+  ]
+}
+
 const MovieItem = ({ movie, showLoginPropose }) => {
-  const { _id, title, imdb, tomatoes } = movie
+  const { _id, title } = movie
 
   const [tooltip, setTooltip] = useState(false)
   const [time, setTime] = useState(null)
@@ -77,7 +93,7 @@ const MovieItem = ({ movie, showLoginPropose }) => {
 
   if (redirect) {
     if (isLogged()) {
-      return <Redirect to='/movie/1' />
+      return <Redirect to={`${routes.MOVIE}/${_id}`} />
     } else {
       setRedirect(false)
       showLoginPropose()
@@ -95,28 +111,21 @@ const MovieItem = ({ movie, showLoginPropose }) => {
         }
       </Title>
       <Info>
-        <InfoBox>
-          <RatingTitle children='IMDB'/>
-            <Rating>
-              <span>Rating: </span>
-              <span>{imdb.rating}</span>
-            </Rating>
-            <Rating>
-              <span>Votes: </span>
-              <span>{imdb.votes}</span>
-            </Rating>
-        </InfoBox>
-        <InfoBox>
-          <RatingTitle children='Tomatoes'/>
-            <Rating>
-              <span>Rating:</span>
-              <span>{tomatoes.viewer.rating}</span>
-            </Rating>
-            <Rating>
-              <span>Votes: </span>
-              <span>{tomatoes.viewer.numReviews}</span>
-            </Rating>
-        </InfoBox>
+        {
+          data(movie).map(({sourse, rating, votes}, index) => (
+            <InfoBox key={index}>
+              <RatingTitle children={sourse}/>
+              <Rating>
+                <span>Rating: </span>
+                <span>{rating}</span>
+              </Rating>
+              <Rating>
+                <span>Votes: </span>
+                <span>{votes}</span>
+              </Rating>
+            </InfoBox>
+          ))
+        }
       </Info>
     </Article>
   )

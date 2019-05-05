@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Redirect } from 'react-router'
+import { withRouter } from 'react-router'
 import routes from '../pathes'
 
+// noinspection CssInvalidPropertyValue
 const Article = styled.article`
   position: absolute;
   display: grid;
@@ -51,13 +52,19 @@ const Button = styled.button`
     }
 `
 
-const LoginProposal = ({ removeLoginPropose }) => {
+const LoginProposal = ({ removeLoginPropose, history }) => {
+
+  const handleRedirect = () => {
+    removeLoginPropose()
+    history.push(routes.LOGIN)
+  }
+
   return (
     <Article>
       <Modal>
         <Title children='You need to log in to visit this page.'/>
         <div>
-          <Button onClick={() => <Redirect to={routes.LOGIN} />} children='LOGIN' />
+          <Button onClick={handleRedirect} children='LOGIN' />
           <Button onClick={removeLoginPropose} children='CANCEL' />
         </div>
       </Modal>
@@ -65,4 +72,4 @@ const LoginProposal = ({ removeLoginPropose }) => {
   )
 }
 
-export default LoginProposal
+export default withRouter(LoginProposal)

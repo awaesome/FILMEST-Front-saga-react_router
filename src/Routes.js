@@ -6,9 +6,9 @@ import Home from './page/Home'
 
 const Routes = () => (
   <Switch>
-    <Route path={routes.HOME} exact component={Home} />
+    <Route exact path={routes.HOME} component={Home} />
     <Route path={routes.LOGIN} component={LoginPage} />
-    <Route path={'/movie/:id'} component={LoginPage} />
+    <Route path={routes.MOVIE_ID} render={() => <h1>ID</h1>} />
     <Route render={() => <h1>4o4</h1>} />
   </Switch>
 )
