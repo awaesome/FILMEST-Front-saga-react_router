@@ -124,7 +124,7 @@ const Movie = ({ match, movie, user, loadMovie, history }) => {
   }
 
   const { title, poster, fullplot } = movie
-  console.log(poster)
+
   return (
     <Wrapper>
       <Title  children={title} />
@@ -132,26 +132,26 @@ const Movie = ({ match, movie, user, loadMovie, history }) => {
         { poster && <Poster src={poster} alt='Poster' /> }
         <MovieDetails>
           {
-            infoBoxData(movie).map(({ mark, title, value }) => {
+            infoBoxData(movie).map(({ mark, title, value }, i) => {
               switch (mark) {
                 case 'string': {
-                  return <DetailInfo>
+                  return <DetailInfo key={i}>
                     <InfoTitle children={title}/>
                     <Info children={value}/>
                   </DetailInfo>
                 }
                 case 'array': {
-                  return <DetailInfo>
+                  return <DetailInfo key={i}>
                     <InfoTitle children={title}/>
                     <Info>
                       {
-                        value.map(item => <span children={`${item};`}/>)
+                        value.map((item, i) => <span key={i} children={`${item};`}/>)
                       }
                     </Info>
                   </DetailInfo>
                 }
                 case 'rating': {
-                  return <DetailInfo>
+                  return <DetailInfo key={i}>
                     <InfoTitle children={title}/>
                     <Info>
                       <span children={`Rating: ${value.title}`}/>

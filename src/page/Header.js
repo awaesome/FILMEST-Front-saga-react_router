@@ -59,6 +59,10 @@ const Header = ({ history, user, userLogout, location }) => {
                 children='LOGIN'
               />
         }
+        {
+          !user.authorized
+            && <StyledLink to={routes.REGISTRATION} location={location} children='REGISTRATION' />
+        }
       </Navbar>
     </HeaderWrapper>
   )

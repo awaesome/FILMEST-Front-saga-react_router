@@ -1,8 +1,8 @@
 import { all, fork } from 'redux-saga/effects'
-import userSaga from './userSaga'
-import moviesSaga from './moviesSaga'
+import userSagas from './userSaga'
+import moviesSagas from './moviesSaga'
 
-const sagas = [userSaga, ...moviesSaga]
+const sagas = [...userSagas, ...moviesSagas]
 
 export default function* rootSaga() {
   yield  all(sagas.map(fork))

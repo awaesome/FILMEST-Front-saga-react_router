@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
-import { userLoggin } from '../actions/userActions'
+import { userLoggin, userRegistration } from '../actions/userActions'
 import { selectUser } from '../selectors/selectors'
 import { compose } from 'redux'
 import { withRouter } from 'react-router'
@@ -22,13 +22,22 @@ const Input = styled.input`
   margin: 0 10px
 `
 
-const Form = ({ history, userLoggin, from, user }) => {
+const Form = ({ history, from, userLoggin, userRegistration, user, form }) => {
 
   const [state, setState] = useState({ email: '', password: ''})
 
   const handleLogin = (e) => {
     e.preventDefault()
-    userLoggin(state.email, state.password)
+    switch (form) {
+      case 'registration': {
+        return userRegistration(state.email, state.password)
+      }
+      case 'login': {
+        return userLoggin(state.email, state.password)
+      }
+      default: return
+    }
+
   }
 
   const handleChange = ({ target }) => {
@@ -66,5 +75,5 @@ const mapStateToProps = state => ({user: selectUser(state)})
 
 export default compose(
   withRouter,
-  connect(mapStateToProps, { userLoggin })
+  connect(mapStateToProps, { userLoggin, userRegistration })
 )(Form)
