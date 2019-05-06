@@ -16,3 +16,8 @@ export const userAuth = (credentials) => axios.post('http://localhost:5000/auth'
   headers: { 'content-type': 'application/json' }
 })
   .catch(error => error.response)
+
+export const userRegistration = (credentials) => axios.post('http://localhost:5000/register', credentials, {
+  headers: { 'content-type': 'application/json' }
+})
+  .catch(error => error.response)

@@ -12,6 +12,14 @@ export const userLogout = () => ({
   type: types.USER_LOGOUT
 })
 
+export const userRegistration = (email, password) => ({
+  type: types.USER_REGISTRATION,
+  payload: {
+    email,
+    password
+  }
+})
+
 export const showLoginPropose = () => ({
   type: types.USER_SHOW_LOGIN_PROPOSE
 })
