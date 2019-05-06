@@ -12,7 +12,7 @@ const Article = styled.article`
   transition: all .3s;
   
     &:hover {
-      border-left: 6px solid lightcoral;
+      border-left: 6px solid ${({theme}) => theme.colors.salmon};
     }
 `
 
@@ -75,7 +75,7 @@ const data = (movie) => {
   ]
 }
 
-const MovieItem = ({ movie, showLoginPropose }) => {
+const MovieItem = ({ movie, showLoginPropose, location }) => {
   const { _id, title } = movie
 
   const [tooltip, setTooltip] = useState(false)
@@ -93,7 +93,12 @@ const MovieItem = ({ movie, showLoginPropose }) => {
 
   if (redirect) {
     if (isLogged()) {
-      return <Redirect to={`${routes.MOVIE}/${_id}`} />
+      return <Redirect to={{
+        pathname: `${routes.MOVIE}/${_id}`,
+        state: {
+          from: location
+        }
+      }} />
     } else {
       setRedirect(false)
       showLoginPropose()
@@ -104,7 +109,7 @@ const MovieItem = ({ movie, showLoginPropose }) => {
     <Article onClick={() => setRedirect(true)} >
       <Title onMouseEnter={showToolTip} onMouseLeave={hideTooltip}>
         {
-          title.length > 16 ? `${title.slice(0, 15)}...` : title
+          title.length > 15 ? `${title.slice(0, 14)}...` : title
         }
         {
           tooltip && <Tooltip children={title}/>

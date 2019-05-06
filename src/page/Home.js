@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import MoviesList from '../components/MoviesList'
-import { getMovies } from '../actions/moviesActions'
+import { loadMovies } from '../actions/moviesActions'
 import { connect } from 'react-redux'
 
-const Home = ({ getMovies }) => {
+const Home = ({ loadMovies }) => {
 
   useEffect(() => {
-    getMovies()
-  }, [getMovies])
+    loadMovies()
+  }, [loadMovies])
 
 
   return (
@@ -15,4 +15,4 @@ const Home = ({ getMovies }) => {
   )
 }
 
-export default connect(null, { getMovies })(Home)
+export default connect(null, { loadMovies })(Home)

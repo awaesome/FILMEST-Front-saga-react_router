@@ -24,7 +24,13 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   font-family: Roboto, Consolas, sans-serif;
   font-size: 1.2em;
-  color: ${({theme, to, route, location}) => location.pathname === (to || route) ? theme.colors.salmon : theme.colors.warning};
+  color: ${
+    ({theme, to, route, location}) => (
+      location.pathname === (to || route) 
+        ? theme.colors.salmon 
+        : 'wheat'
+    )
+  };
     
     &:hover {
       color: ${({theme}) => theme.hoverColors.white};
@@ -41,7 +47,6 @@ const Header = ({ history, user, userLogout, location }) => {
     <HeaderWrapper>
       <Navbar>
         <StyledLink to={routes.HOME} location={location} >HOME</StyledLink>
-        <StyledLink to={routes.MOVIES} location={location} >MOVIES</StyledLink>
         {
           user.authorized
             ? <StyledLink to='' onClick={handleLogout} location={location} children='LOGOUT' />
